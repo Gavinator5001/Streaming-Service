@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ show_name }} - {{ season_name }} - MyStuff</title>
+    <style>
+        :root {
+            --text: #f5f7fb;
+            --muted: #a6adbb;
+            --accent: #7c5cff;
+            --accent-2: #ff4d8d;
+            --border: rgba(255, 255, 255, 0.10);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top right, rgba(255, 77, 141, 0.16), transparent 30%),
+                linear-gradient(180deg, #0b0d12 0%, #090a0f 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 28px;
+            background: rgba(10, 11, 16, 0.72);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 22px 60px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: var(--muted);
+        }
+
+        .hero-card {
+            padding: 28px;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: clamp(1.9rem, 4vw, 2.7rem);
+            letter-spacing: -0.04em;
+            margin-bottom: 8px;
+        }
+
+        .subtext {
+            color: var(--muted);
+        }
+
+        .episode-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .episode-card {
+            display: block;
+            padding: 20px 22px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+            box-shadow: var(--shadow);
+            transition: transform 0.18s ease, border-color 0.18s ease;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(124, 92, 255, 0.35);
+        }
+
+        .episode-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .episode-meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">My<span>Stuff</span></div>
+        <a href="{{ url_for('show_detail', show_name=show_name) }}">Back to seasons</a>
+    </header>
+
+    <main class="page">
+        <a class="back" href="{{ url_for('show_detail', show_name=show_name) }}">← {{ show_name }}</a>
+
+        <div class="hero-card">
+            <h1>{{ season_name }}</h1>
+            <div class="subtext">{{ show_name }}</div>
+        </div>
+
+        <div class="episode-list">
+            {% for episode in episodes %}
+            <a class="episode-card" href="{{ url_for('watch', category='show', filename=episode.filename) }}">
+                <div class="episode-title">{{ episode.title }}</div>
+                <div class="episode-meta">Play episode</div>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+
+</html>

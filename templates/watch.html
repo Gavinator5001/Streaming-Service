@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - MyStuff</title>
+    <style>
+        :root {
+            --text: #f5f7fb;
+            --muted: #a6adbb;
+            --accent: #7c5cff;
+            --accent-2: #ff4d8d;
+            --border: rgba(255, 255, 255, 0.10);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(124, 92, 255, 0.18), transparent 30%),
+                linear-gradient(180deg, #0b0d12 0%, #090a0f 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 28px;
+            background: rgba(10, 11, 16, 0.72);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 34px 22px 60px;
+        }
+
+        .topline {
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            letter-spacing: -0.05em;
+            margin-bottom: 10px;
+        }
+
+        .subtext {
+            color: var(--muted);
+            margin-bottom: 24px;
+            word-break: break-word;
+        }
+
+        .label {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.84rem;
+        }
+
+        .player-shell {
+            overflow: hidden;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+            box-shadow: var(--shadow);
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            background: black;
+            max-height: 78vh;
+        }
+
+        .details {
+            padding: 16px 18px;
+            color: var(--muted);
+            font-size: 0.92rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">My<span>Stuff</span></div>
+        <a href="{{ url_for('index') }}">Back to library</a>
+    </header>
+
+    <main class="page">
+        <div class="label">{{ label }}</div>
+        <h1>{{ title }}</h1>
+        <div class="subtext">{{ filename }}</div>
+
+        <div class="player-shell">
+            <video controls autoplay preload="metadata">
+                <source src="{{ video_url }}">
+                Your browser does not support the video tag.
+            </video>
+            <div class="details">Now playing: {{ title }}</div>
+        </div>
+    </main>
+</body>
+
+</html>
